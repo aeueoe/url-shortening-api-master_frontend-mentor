@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 
-function Shorten() {
+function ShortLink() {
   const [longUrl, setLongUrl] = useState("");
   const [items, setItems] = useState(() => {
     const savedItems = JSON.parse(localStorage.getItem("items"));
@@ -116,4 +116,4 @@ function Shorten() {
   );
 }
 
-export default Shorten;
+export default ShortLink;
