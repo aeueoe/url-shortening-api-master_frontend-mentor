@@ -1,49 +1,72 @@
 import React from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import shorten from "./shorten";
-import { statistics } from "./statistics";
+import { Container, Button } from "react-bootstrap";
+import Recognition from "../images/icon-brand-recognition.svg";
+import Records from "../images/icon-detailed-records.svg";
+import Customizable from "../images/icon-fully-customizable.svg";
 
 const Main = () => {
-  const statisticsElements = statistics.map((statistics, i) => (
-    <Col
-      key={i}
-      className={`stat relative text-center pt-16 bg-white rounded-lg px-5 pb-8 lg:text-left h-auto ${
-        i === 0 ? "lg:mt-0" : ""
-      } ${i === 1 ? "mt-24 lg:mt-10 lg:-mb-8" : ""} ${
-        i === 2 ? "mt-24 lg:mt-20 lg:-mb-20" : ""
-      }`}
-    >
-      <div className="statIcon left-2/4 bg-color2 p-6 w-20 h-20 lg:left-20">
-        <img src={statistics.image} alt="logo" />
-      </div>
-      <h3 className="font-bold text-2xl mb-3">{statistics.title}</h3>
-      <p>{statistics.content}</p>
-    </Col>
-  ));
-
   return (
-    <main className="bg-color5 bg-opacity-20">
-      <Container className="max-w-7xl mx-auto">
-        <div className="relative">
-          <shorten />
-        </div>
-        <section className="mx-auto text-center mb-36 pt-28 lg:mb-52">
-          <h2 className="text-3xl font-bold mb-5">Advanced Statistics</h2>
-          <p className="max-w-lg mx-auto">
+    <main style={{ backgroundColor: "hsla(0, 0%, 75%, 0.2)" }}>
+      <div className="container text-center">
+        <div className="py-5 mx-auto">
+          <h2
+            className="text-center mb-4"
+            style={{ color: "hsl(260, 8%, 14%)" }}
+          >
+            Advanced Statistics
+          </h2>
+          <p
+            className="text-center"
+            style={{ maxWidth: "32rem", margin: "0 auto" }}
+          >
             Track how your links are performing across the web with our advanced
             statistics dashboard.
           </p>
-          <Row className="relative mx-auto mt-24 md:gap-7 flex flex-col lg:flex lg:flex-row lg:grid-cols-3 lg:h-72">
-            <span className="absolute left-1/2 transform -translate-x-2/4 w-3 h-4/5 bg-color1 line lg:top-1/2 lg:-translate-y-2/4 lg:h-3 lg:w-4/5 lg:rotate-180"></span>
-            {statisticsElements}
-          </Row>
-        </section>
+        </div>
+      </div>
+
+      <Container className="mt-3">
+        <div className="container-statistics ml-5">
+          <div className="box-statistics">
+            <div className="icon-box">
+              <img src={Recognition} alt="logo recognition" />
+            </div>
+            <h3 style={{ fontWeight: 700 }}>Brand Recognition</h3>
+            <p>
+              Boost your brand recognition with each click. Generic links don't
+              mean a thing. Branded links help instil confidence in your
+              content.
+            </p>
+          </div>
+
+          <div className="box-statistics pos-2">
+            <div className="icon-box">
+              <img src={Records} alt="logo records" />
+            </div>
+            <h3 style={{ fontWeight: 700 }}>Detailed Records</h3>
+            <p>
+              Gain insights into who is clicking your links. Knowing when and
+              where people engage with your content helps inform better
+              decisions.
+            </p>
+          </div>
+
+          <div className="box-statistics pos-3">
+            <div className="icon-box">
+              <img src={Customizable} alt="logo customizable" />
+            </div>
+            <h3 style={{ fontWeight: 700 }}>Fully Customizable</h3>
+            <p>
+              Improve brand awareness and content discoverability through
+              customizable links, supercharging audience engagement.
+            </p>
+          </div>
+        </div>
       </Container>
-      <section className="bg-color2 bg-boostMobile bg-right bg-no-repeat text-white py-24 text-center md:bg-boostDesktop md:bg-top md:bg-cover">
-        <h3 className="text-3xl font-semibold lg:text-4xl">
-          Boost your links today
-        </h3>
-        <Button>Get Started</Button>
+
+      <section className="boost text-center">
+        <h2>Boost your links today</h2>
+        <Button className="start mt-4">Get Started</Button>
       </section>
     </main>
   );

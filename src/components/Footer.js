@@ -5,7 +5,7 @@ const Footer = () => {
     <footer style={{ backgroundColor: "hsl(260, 8%, 14%)" }}>
       <div className="container py-5">
         <div className="row">
-          <div className="col-md-4 pr-md-5 mb-4">
+          <div className="col-md-2 pr-md-5 mb-4 ">
             <svg xmlns="http://www.w3.org/2000/svg" width="121" height="33">
               <path
                 fill="white"
@@ -58,8 +58,8 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className=" col-md mb-4 ">
-            <a href="#" className="mx-2 ">
+          <div className="col-md-3">
+            <a href="#" className="mx-2 my-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
                 <path
                   className="svg-path"
@@ -68,7 +68,7 @@ const Footer = () => {
                 />
               </svg>
             </a>
-            <a href="#" className="mx-2">
+            <a href="#" className="mx-2 my-2">
               {" "}
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20">
                 <path
@@ -78,7 +78,7 @@ const Footer = () => {
                 />
               </svg>
             </a>
-            <a href="#" className="mx-2">
+            <a href="#" className="mx-2 my-2">
               {" "}
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
                 <path
@@ -88,7 +88,7 @@ const Footer = () => {
                 />
               </svg>
             </a>
-            <a href="#" className="mx-2">
+            <a href="#" className="mx-2 my-2">
               {" "}
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
                 <path
