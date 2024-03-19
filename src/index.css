@@ -127,6 +127,35 @@ h2 {
   margin-top: 8%;
 }
 
+/* Shorten */
+
+.short {
+  background-color: var(--primary-violet);
+  background-image: url(./images/bg-shorten-desktop.svg);
+  background-size: cover;
+  margin: 10rem auto 2rem;
+  position: relative;
+  border-radius: 0.8rem;
+  padding: 3rem 2rem;
+  bottom: 5rem;
+}
+
+input {
+  border-radius: 0.5rem;
+  padding: 0.8rem 1.3rem;
+  height: 3rem;
+  width: 80%;
+}
+
+.shorten {
+  border-radius: 0.5rem;
+  background-color: var(--primary-cyan);
+  padding: 0.5rem 1.3rem;
+  color: #fff;
+  border-color: transparent;
+  height: 3rem;
+}
+
 /* Footer */
 footer {
   color: #fff;
@@ -168,7 +197,16 @@ a:hover {
     left: 50%;
     transform: translateX(-50%) translateY(-50%) scale(0.9);
   }
-
+  .short {
+    border-radius: 0.8rem;
+    padding: 2rem 1rem;
+  }
+  .shorten,
+  input {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
   .start {
     display: block;
     margin: auto;

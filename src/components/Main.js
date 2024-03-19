@@ -1,4 +1,5 @@
 import React from "react";
+import Shorten from "./Shorten";
 import { Container, Button } from "react-bootstrap";
 import Recognition from "../images/icon-brand-recognition.svg";
 import Records from "../images/icon-detailed-records.svg";
@@ -7,6 +8,7 @@ import Customizable from "../images/icon-fully-customizable.svg";
 const Main = () => {
   return (
     <main style={{ backgroundColor: "hsla(0, 0%, 75%, 0.2)" }}>
+      <Shorten />
       <div className="container text-center">
         <div className="py-5 mx-auto">
           <h2

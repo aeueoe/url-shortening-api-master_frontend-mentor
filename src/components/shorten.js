@@ -1,148 +1,119 @@
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
 
-const Shorten = () => {
-  const [content, setContent] = useState("");
-  const [shortLink, setShortLink] = useState(ls());
+function Shorten() {
+  const [longUrl, setLongUrl] = useState("");
+  const [items, setItems] = useState(() => {
+    const savedItems = JSON.parse(localStorage.getItem("items"));
+    return savedItems ?? [];
+  });
 
-  const url = `https://api.shrtco.de/v2/shorten?url=${content}`;
+  const handleChange = (e) => {
+    setLongUrl(e.target.value);
+  };
 
-  let displayLink;
-  let errorElement = useRef(null);
-  let inputField = useRef(null);
+  const addItem = (newItem) => {
+    setItems([...items, newItem]);
+  };
 
   useEffect(() => {
-    localStorage.setItem("shortLink", JSON.stringify(shortLink));
-  }, [shortLink]);
+    localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
 
-  function ls() {
-    const localData = localStorage.getItem("shortLink");
-    return localData
-      ? JSON.parse(localData)
-      : {
-          loading: false,
-          data: [],
-        };
-  }
+  useEffect(() => {
+    const storedItems = localStorage.getItem("items");
+    if (storedItems) {
+      setItems(JSON.parse(storedItems));
+    }
+  }, []);
 
-  function getShort() {
-    setShortLink({
-      loading: true,
-      data: [],
-      copied: false,
-    });
+  useEffect(() => {
+    const removeItemsOnRefresh = () => {
+      localStorage.removeItem("items");
+      setItems([]);
+    };
 
-    axios
-      .get(url)
-      .then((response) => {
-        setShortLink({
-          loading: false,
-          data: [...shortLink.data, response.data],
-        });
-      })
-      .catch((err) => {
-        setShortLink({
-          loading: false,
-          data: [...shortLink.data],
-          error: true,
-        });
-        console.log(err);
-      });
-  }
+    window.addEventListener("beforeunload", removeItemsOnRefresh);
 
-  const handleSubmit = (e) => {
-    e.preventDefault(e);
+    return () => {
+      window.removeEventListener("beforeunload", removeItemsOnRefresh);
+    };
+  }, []);
 
-    setContent("");
-
-    if (content) {
-      getShort();
-      errorElement.current.classList.remove("block");
-      errorElement.current.classList.add("hidden");
-      inputField.current.classList.remove("placeholder-color3");
-      inputField.current.classList.add("focus:ring-color1");
-      inputField.current.classList.remove("focus:ring-color3");
-    } else {
-      errorElement.current.classList.remove("hidden");
-      errorElement.current.classList.add("block");
-      inputField.current.classList.add("placeholder-color3");
-      inputField.current.classList.remove("focus:ring-color1");
-      inputField.current.classList.add("focus:ring-color3");
-      inputField.current.focus();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (longUrl === "") {
+      alert("Please add a link");
+      return;
+    }
+    try {
+      const response = await fetch(
+        `http://tinyurl.com/api-create.php?url=${longUrl}`
+      );
+      if (response.ok) {
+        const shortUrl = await response.text();
+        addItem({ shortUrl, longUrl });
+        setLongUrl("");
+      } else {
+        console.error(
+          "Error occurred while shortening URL:",
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
     }
   };
 
-  const onCopy = function (e) {
-    e.target.textContent = "Copied!";
-    e.target.classList.remove("bg-color1");
-    e.target.classList.add("bg-color2");
+  const handleCopyShortLink = (shortLink) => {
+    navigator.clipboard.writeText(shortLink);
+    alert("Copied to clipboard!");
   };
 
-  if (shortLink.data) {
-    displayLink = shortLink.data.map((data, i) => (
-      <Row key={i} className="bg-white p-4 rounded-md mt-6">
-        <Col className="border-bottom pb-4  md:border-0 md:pb-0">
-          <p className="break-words lg:max-w-full">
-            {data.result.original_link}
-          </p>
-        </Col>
-        <Col className="pt-4 md:flex md:gap-6 md:justify-end md:pt-0">
-          <p className="text-color1">{data.result.full_short_link2}</p>
-          <CopyToClipboard text={data.result.full_short_link2}>
-            <Button
-              className="copyBtn bg-color1 py-3 w-full block mt-3 rounded-md hover:opacity-80 text-white"
-              aria-label="copy"
-              onClick={(e) => onCopy(e)}
-            >
-              Copy
-            </Button>
-          </CopyToClipboard>
-        </Col>
-      </Row>
-    ));
-  }
-
-  if (shortLink.loading) {
-  }
-
-  if (shortLink.error) {
-  }
-
   return (
-    <>
-      <div className="rounded-xl bg-color2 p-6 bg-no-repeat bg-right-top w-full form">
-        <Form onSubmit={(e) => handleSubmit(e)}>
-          <Form.Group className="md:flex md:gap-6">
-            <Form.Control
-              type="text"
-              ref={inputField}
-              value={content}
-              placeholder="Shorten a link here"
-              className="w-full py-3 px-5 rounded-md border-0 focus:ring-4 focus:ring-color1"
-              aria-label="Link to be shorten"
-              onChange={(e) => setContent(e.target.value)}
-            />
-            <p
-              ref={errorElement}
-              className="text-color3 mt-2 hidden md:absolute md:bottom-0"
-            >
-              <em>Please add a link</em>
-            </p>
-            <Button
-              type="submit"
-              aria-label="Shorten it!"
-              className="bg-color1 py-3 text-white w-full block rounded-md hover:opacity-90 mt-6 md:mt-0 md:w-48"
-            >
-              Shorten it!
-            </Button>
-          </Form.Group>
-        </Form>
+    <Container>
+      <div className="short">
+        <div className="row justify-content-center">
+          <div className="col-md-10">
+            <form onSubmit={handleSubmit}>
+              <div className="d-md-flex flex-md-row flex-column">
+                <input
+                  type="text"
+                  className="form-control mb-3 mb-md-0 me-md-3"
+                  placeholder="Shorten a link here..."
+                  value={longUrl}
+                  onChange={handleChange}
+                />
+                <button className="shorten" type="submit">
+                  Shorten!
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <div className="pt-20">{displayLink}</div>
-    </>
+      <div className="container mt-5">
+        <div className="row">
+          {items.map((item, index) => (
+            <div key={index} className="col-md-8 mx-auto mb-3">
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">{item.longUrl}</h5>
+                  <p className="card-text">{item.shortUrl}</p>
+                  <button
+                    className="start"
+                    onClick={() => handleCopyShortLink(item.shortUrl)}
+                  >
+                    Copy
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Container>
   );
-};
+}
 
 export default Shorten;
