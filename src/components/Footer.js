@@ -59,7 +59,7 @@ const Footer = () => {
             </ul>
           </div>
           <div className="col-md-3">
-            <a href="#" className="mx-2 my-2">
+            <a href="https://www.facebook.com/" className="mx-2 my-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
                 <path
                   className="svg-path"
@@ -68,7 +68,7 @@ const Footer = () => {
                 />
               </svg>
             </a>
-            <a href="#" className="mx-2 my-2">
+            <a href="https://twitter.com/" className="mx-2 my-2">
               {" "}
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20">
                 <path
@@ -78,7 +78,7 @@ const Footer = () => {
                 />
               </svg>
             </a>
-            <a href="#" className="mx-2 my-2">
+            <a href="https://www.pinterest.com/" className="mx-2 my-2">
               {" "}
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
                 <path
@@ -88,7 +88,7 @@ const Footer = () => {
                 />
               </svg>
             </a>
-            <a href="#" className="mx-2 my-2">
+            <a href="https://www.instagram.com/" className="mx-2 my-2">
               {" "}
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
                 <path
