@@ -1,5 +1,7 @@
 # Frontend Mentor - Shortly URL shortening API Challenge
 
+[Live App](https://url-short-api-master.vercel.app/)
+
 # Create React App + Bootstrap
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
